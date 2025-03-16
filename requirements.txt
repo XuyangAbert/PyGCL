@@ -1,0 +1,10 @@
+torch==2.1.2
+torch-geometric==2.2.0
+numpy
+tqdm
+scipy
+networkx
+scikit-learn
+dgl==1.0.0
+torch-scatter
+torch_sparse
