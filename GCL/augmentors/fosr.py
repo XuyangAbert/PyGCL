@@ -1,6 +1,7 @@
 from GCL.augmentors.augmentor import Graph, Augmentor
 from GCL.augmentors.functional import add_edge
 from torch_geometric.utils import to_networkx,from_networkx,homophily
+from torch_geometric.data import Data
 import networkx as nx
 import numpy as np
 from math import inf
@@ -101,7 +102,7 @@ def fosr(data, max_iterations = 10):
     clustermod_before = maximize_modularity(nxgraph)
     cluster_dict_before = {node: i for i, cluster in enumerate(clustermod_before) for node in cluster}
     # Assuming `data.y` contains the node labels
-    labels = data.y.cpu().numpy()
+    # labels = data.y.cpu().numpy()
     for j in tqdm(range(max_iterations)):
         edge_index, edge_type, _, prod = edge_rewire(data.edge_index.numpy(), num_iterations=1)      
         data.edge_index = torch.tensor(edge_index)
@@ -117,6 +118,7 @@ class FOSR(Augmentor):
 
     def augment(self, g: Graph) -> Graph:
         x, edge_index, edge_weights = g.unfold()
-        new_graph = fosr(g, self.max_iterations)
+	data = Data(x=x, edge_index=edge_index)
+        new_graph = fosr(data, self.max_iterations)
         edge_index = torch.tensor(list(new_graph.edges()))
         return Graph(x=x, edge_index=edge_index, edge_weights=edge_weights)
