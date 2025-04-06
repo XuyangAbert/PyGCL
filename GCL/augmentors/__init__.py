@@ -10,6 +10,7 @@ from .node_shuffling import NodeShuffling
 from .feature_masking import FeatureMasking
 from .feature_dropout import FeatureDropout
 from .edge_attr_masking import EdgeAttrMasking
+from .fosr import FOSR
 
 __all__ = [
     'Graph',
@@ -27,6 +28,7 @@ __all__ = [
     'NodeDropping',
     'NodeShuffling',
     'RWSampling'
+    'FOSR',
 ]
 
 classes = __all__
