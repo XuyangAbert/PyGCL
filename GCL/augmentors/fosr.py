@@ -92,7 +92,7 @@ def edge_rewire(edge_index, x=None, edge_type=None, num_iterations=50, initial_p
 def maximize_modularity(G):
   return nx.community.greedy_modularity_communities(G)
  
-def fosr(data, max_iterations):
+def fosr(data, max_iterations = 10):
     # Convert to NetworkX graph
     nxgraph = to_networkx(data, to_undirected=True)
     # Track the original edges
