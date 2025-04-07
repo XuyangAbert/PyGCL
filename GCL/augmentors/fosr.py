@@ -103,7 +103,7 @@ def fosr(data, max_iterations = 10):
 	cluster_dict_before = {node: i for i, cluster in enumerate(clustermod_before) for node in cluster}
 	# Assuming `data.y` contains the node labels
 	for j in tqdm(range(max_iterations)):
-		edge_index, edge_type, _, prod = edge_rewire(data.edge_index.numpy(), num_iterations=1)      
+		edge_index, edge_type, _, prod = edge_rewire(data.edge_index.cpu().numpy(), num_iterations=1)      
 		data.edge_index = torch.tensor(edge_index)
 	data.edge_index = torch.cat([data.edge_index])
 	# Convert back to NetworkX graph after rewiring
