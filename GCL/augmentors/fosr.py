@@ -6,6 +6,7 @@ import networkx as nx
 import numpy as np
 from math import inf
 from tqdm import tqdm
+import torch
 
 def choose_edge_to_add(x, edge_index, degrees):
 	# chooses edge (u, v) to add which minimizes y[u]*y[v]
