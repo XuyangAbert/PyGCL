@@ -15,10 +15,12 @@ class PPRDiffusion(Augmentor):
         if self._cache is not None and self.use_cache:
             return self._cache
         x, edge_index, edge_weights = g.unfold()
+        print("Shape before sparsification: ", edge_index.shape)
         edge_index, edge_weights = compute_ppr(
             edge_index, edge_weights,
             alpha=self.alpha, eps=self.eps, ignore_edge_attr=False, add_self_loop=self.add_self_loop
         )
+        print("Shape after sparsification: ", edge_index.shape)
         res = Graph(x=x, edge_index=edge_index, edge_weights=edge_weights)
         self._cache = res
         return res
