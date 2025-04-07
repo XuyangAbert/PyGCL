@@ -103,7 +103,7 @@ def fosr(data, max_iterations = 10):
 	clustermod_before = maximize_modularity(nxgraph)
 	cluster_dict_before = {node: i for i, cluster in enumerate(clustermod_before) for node in cluster}
 	# Assuming `data.y` contains the node labels
-	for j in tqdm(range(max_iterations)):
+	for j in range(max_iterations):
 		edge_index, edge_type, _, prod = edge_rewire(data.edge_index.cpu().numpy(), num_iterations=1)      
 		data.edge_index = torch.tensor(edge_index)
 	data.edge_index = torch.cat([data.edge_index])
@@ -119,12 +119,12 @@ class FOSR(Augmentor):
 		self.max_iterations = max_iterations
 	def augment(self, g: Graph) -> Graph:
 		x, edge_index, edge_weights = g.unfold()
-		print("Shape before sparisification:", edge_index.shape)
+		# print("Shape before sparisification:", edge_index.shape)
 		data = Data(x=x, edge_index=edge_index)
 		# new_graph = fosr(data, self.max_iterations)
 		# edge_index = torch.tensor(list(new_graph.edges()))
 		data = fosr(data, self.max_iterations)
-		print("Shape after sparisification:", data.edge_index.shape)
+		# print("Shape after sparisification:", data.edge_index.shape)
 		device = torch.device('cuda')
 		data = data.to(device)
 		return Graph(x=data.x, edge_index=data.edge_index, edge_weights=edge_weights)
