@@ -94,31 +94,29 @@ def maximize_modularity(G):
   return nx.community.greedy_modularity_communities(G)
  
 def fosr(data, max_iterations = 10):
-    # Convert to NetworkX graph
-    nxgraph = to_networkx(data, to_undirected=True)
-    # Track the original edges
-    original_edges = set(nxgraph.edges())
-    # Perform community detection before rewiring
-    clustermod_before = maximize_modularity(nxgraph)
-    cluster_dict_before = {node: i for i, cluster in enumerate(clustermod_before) for node in cluster}
-    # Assuming `data.y` contains the node labels
-    # labels = data.y.cpu().numpy()
-    for j in tqdm(range(max_iterations)):
-        edge_index, edge_type, _, prod = edge_rewire(data.edge_index.numpy(), num_iterations=1)      
-        data.edge_index = torch.tensor(edge_index)
-    data.edge_index = torch.cat([data.edge_index])
-    # Convert back to NetworkX graph after rewiring
-    newgraph = to_networkx(data, to_undirected=True)
-    return newgraph
+	# Convert to NetworkX graph
+	nxgraph = to_networkx(data, to_undirected=True)
+	# Track the original edges
+	original_edges = set(nxgraph.edges())
+	# Perform community detection before rewiring
+	clustermod_before = maximize_modularity(nxgraph)
+	cluster_dict_before = {node: i for i, cluster in enumerate(clustermod_before) for node in cluster}
+	# Assuming `data.y` contains the node labels
+	for j in tqdm(range(max_iterations)):
+		edge_index, edge_type, _, prod = edge_rewire(data.edge_index.numpy(), num_iterations=1)      
+		data.edge_index = torch.tensor(edge_index)
+    	data.edge_index = torch.cat([data.edge_index])
+    	# Convert back to NetworkX graph after rewiring
+    	newgraph = to_networkx(data, to_undirected=True)
+    	return newgraph
 
 class FOSR(Augmentor):
-    def __init__(self, max_iterations):
-        super(FOSR, self).__init__() 
-        self.max_iterations = max_iterations
-
-    def augment(self, g: Graph) -> Graph:
-        x, edge_index, edge_weights = g.unfold()
-	data = Data(x=x, edge_index=edge_index)
-        new_graph = fosr(data, self.max_iterations)
-        edge_index = torch.tensor(list(new_graph.edges()))
-        return Graph(x=x, edge_index=edge_index, edge_weights=edge_weights)
+	def __init__(self, max_iterations):
+		super(FOSR, self).__init__() 
+		self.max_iterations = max_iterations
+	def augment(self, g: Graph) -> Graph:
+		x, edge_index, edge_weights = g.unfold()
+	    	data = Data(x=x, edge_index=edge_index)
+	    	new_graph = fosr(data, self.max_iterations)
+	    	edge_index = torch.tensor(list(new_graph.edges()))
+	    	return Graph(x=x, edge_index=edge_index, edge_weights=edge_weights)
