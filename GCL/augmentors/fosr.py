@@ -125,5 +125,6 @@ class FOSR(Augmentor):
 		# edge_index = torch.tensor(list(new_graph.edges()))
 		data = fosr(data, self.max_iterations)
 		print("Shape after sparisification:", data.edge_index.shape)
-		print(torch.max(data.edge_index))
+		device = torch.device('cuda')
+		data = data.to(device)
 		return Graph(x=data.x, edge_index=data.edge_index, edge_weights=edge_weights)
