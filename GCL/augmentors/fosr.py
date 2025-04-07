@@ -119,8 +119,10 @@ class FOSR(Augmentor):
 		self.max_iterations = max_iterations
 	def augment(self, g: Graph) -> Graph:
 		x, edge_index, edge_weights = g.unfold()
+		print("Shape before sparisification:", edge_index.shape)
 		data = Data(x=x, edge_index=edge_index)
 		# new_graph = fosr(data, self.max_iterations)
 		# edge_index = torch.tensor(list(new_graph.edges()))
 		edge_index = fosr(data, self.max_iterations)
+		print("Shape after sparisification:", edge_index.shape)
 		return Graph(x=x, edge_index=edge_index, edge_weights=edge_weights)
