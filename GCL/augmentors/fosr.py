@@ -120,6 +120,6 @@ class FOSR(Augmentor):
 		x, edge_index, edge_weights = g.unfold()
 		data = Data(x=x, edge_index=edge_index)
 		new_graph = fosr(data, self.max_iterations)
-		edge_index = torch.tensor(list(new_graph.edges()))
-		print(edge_index.shape)
+		# edge_index = torch.tensor(list(new_graph.edges()))
+		edge_index = torch.tensor(list(new_graph.edges())).t()
 		return Graph(x=x, edge_index=edge_index, edge_weights=edge_weights)
