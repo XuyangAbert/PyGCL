@@ -105,7 +105,7 @@ def fosr(data, max_iterations = 10):
 	for j in tqdm(range(max_iterations)):
 		edge_index, edge_type, _, prod = edge_rewire(data.edge_index.numpy(), num_iterations=1)      
 		data.edge_index = torch.tensor(edge_index)
-    	data.edge_index = torch.cat([data.edge_index])
+	data.edge_index = torch.cat([data.edge_index])
     	# Convert back to NetworkX graph after rewiring
     	newgraph = to_networkx(data, to_undirected=True)
     	return newgraph
