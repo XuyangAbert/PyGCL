@@ -111,7 +111,7 @@ def fosr(data, max_iterations = 10):
 	# newgraph = to_networkx(data, to_undirected=True)
 	# print(newgraph.edge_weights)
 	# return newgraph
-	return data.edge_index
+	return data
 
 class FOSR(Augmentor):
 	def __init__(self, max_iterations):
@@ -123,6 +123,6 @@ class FOSR(Augmentor):
 		data = Data(x=x, edge_index=edge_index)
 		# new_graph = fosr(data, self.max_iterations)
 		# edge_index = torch.tensor(list(new_graph.edges()))
-		edge_index = fosr(data, self.max_iterations)
+		data = fosr(data, self.max_iterations)
 		print("Shape after sparisification:", edge_index.shape)
-		return Graph(x=x, edge_index=edge_index, edge_weights=edge_weights)
+		return Graph(x=data.x, edge_index=data.edge_index, edge_weights=edge_weights)
