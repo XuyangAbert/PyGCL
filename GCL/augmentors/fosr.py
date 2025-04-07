@@ -109,7 +109,7 @@ def fosr(data, max_iterations = 10):
 	data.edge_index = torch.cat([data.edge_index])
 	# Convert back to NetworkX graph after rewiring
 	newgraph = to_networkx(data, to_undirected=True)
-	print(newgraph.edge_weights)
+	# print(newgraph.edge_weights)
 	return newgraph
 
 class FOSR(Augmentor):
@@ -121,4 +121,5 @@ class FOSR(Augmentor):
 		data = Data(x=x, edge_index=edge_index)
 		new_graph = fosr(data, self.max_iterations)
 		edge_index = torch.tensor(list(new_graph.edges()))
+		print(edge_index.shape)
 		return Graph(x=x, edge_index=edge_index, edge_weights=edge_weights)
