@@ -261,16 +261,17 @@ def sdrf(
 
     return G
 class SDRF(Augmentor):
-    def __init__(self, max_iterations, removal_bound, tau):
+    def __init__(self, max_iterations, removal_bound=0.95):
         super(FOSR, self).__init__()
         self.max_iterations = max_iterations
         self.removal_bound = removal_bound
-        self.tau = tau
+        # self.tau = tau
 
     def augment(self, g: Graph) -> Graph:
         x, edge_index, edge_weights = g.unfold()
         data = Data(x=x, edge_index=edge_index)
-        newgraph = sdrf(g, self.max_iterations, self.removal_bound, self.tau)
+        # newgraph = sdrf(g, self.max_iterations, self.removal_bound, self.tau)
+        newgraph = sdrf(g, self.max_iterations)
         edge_index = torch.tensor(list(newgraph.edges()))
         return Graph(x=x, edge_index=edge_index, edge_weights=edge_weights)
 # def sdrf(data, max_iterations,removal_bound,tau):
