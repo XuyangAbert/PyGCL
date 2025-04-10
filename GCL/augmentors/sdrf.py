@@ -262,7 +262,7 @@ def sdrf(
     return G
 class SDRF(Augmentor):
     def __init__(self, max_iterations, removal_bound=0.95):
-        super(FOSR, self).__init__()
+        super(SDRF, self).__init__()
         self.max_iterations = max_iterations
         self.removal_bound = removal_bound
         # self.tau = tau
