@@ -11,6 +11,7 @@ from .feature_masking import FeatureMasking
 from .feature_dropout import FeatureDropout
 from .edge_attr_masking import EdgeAttrMasking
 from .fosr import FOSR
+from .sdrf import SDRF
 
 __all__ = [
     'Graph',
@@ -29,6 +30,7 @@ __all__ = [
     'NodeShuffling',
     'RWSampling'
     'FOSR',
+    'SDRF',
 ]
 
 classes = __all__
