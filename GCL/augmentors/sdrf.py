@@ -197,7 +197,8 @@ def sdrf(
             if i != j:
                 A[i, j] = 1.0
     N = A.shape[0]
-    G = to_networkx(data,node_attrs=['x'],graph_attrs=['y'])
+    # G = to_networkx(data,node_attrs=['x'],graph_attrs=['y'])
+    G = to_networkx(data,node_attrs=['x'])
     if is_undirected:
         G = G.to_undirected()
     C = np.zeros((N, N))
@@ -271,7 +272,7 @@ class SDRF(Augmentor):
         x, edge_index, edge_weights = g.unfold()
         data = Data(x=x, edge_index=edge_index)
         # newgraph = sdrf(g, self.max_iterations, self.removal_bound, self.tau)
-        newgraph = sdrf(g, self.max_iterations)
+        newgraph = sdrf(data, self.max_iterations)
         edge_index = torch.tensor(list(newgraph.edges()))
         return Graph(x=x, edge_index=edge_index, edge_weights=edge_weights)
 # def sdrf(data, max_iterations,removal_bound,tau):
