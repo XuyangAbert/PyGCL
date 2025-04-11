@@ -1,4 +1,6 @@
-import time
+from GCL.augmentors.augmentor import Graph, Augmentor
+from GCL.augmentors.functional import add_edge
+# import time
 import torch
 import networkx as nx
 # from dataloader import *
