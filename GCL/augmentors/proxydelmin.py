@@ -1,16 +1,18 @@
-import time
+# import random
+from GCL.augmentors.augmentor import Graph, Augmentor
+from GCL.augmentors.functional import add_edge
+from torch_geometric.utils import to_networkx,from_networkx,homophily
+from torch_geometric.data import Data
+from numba import jit, prange
+import numpy as np
 import torch
 import networkx as nx
-from dataloader import *
+from math import inf
 from tqdm import tqdm
+
 from .fastrewiringKupdates import *
-#from rewiring.fastrewiringmax import *
 from .MinGapKupdates import *
 from .spectral_utils import *
-from torch_geometric.utils import to_networkx,from_networkx,homophily
-import random
-# from clustering import *
-from sklearn.metrics.cluster import normalized_mutual_info_score as NMI
 
 def maximize_modularity(G):
   return nx.community.greedy_modularity_communities(G)
