@@ -10,9 +10,9 @@ import networkx as nx
 from math import inf
 from tqdm import tqdm
 
-from .fastrewiringKupdates import *
-from .MinGapKupdates import *
-from .spectral_utils import *
+from fastrewiringKupdates import *
+from MinGapKupdates import *
+from spectral_utils import *
 
 def maximize_modularity(G):
   return nx.community.greedy_modularity_communities(G)
