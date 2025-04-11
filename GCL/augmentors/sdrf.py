@@ -273,8 +273,14 @@ class SDRF(Augmentor):
         data = Data(x=x, edge_index=edge_index)
         # newgraph = sdrf(g, self.max_iterations, self.removal_bound, self.tau)
         newgraph = sdrf(data, self.max_iterations)
-        edge_index = torch.tensor(list(newgraph.edges()))
-        return Graph(x=x, edge_index=edge_index, edge_weights=edge_weights)
+        data.edge_index = torch.tensor(list(newgraph.edges())).t()
+        device = torch.device('cuda')
+        data = data.to(device)
+
+        # modified_graph = Graph(x=x, edge_index=edge_index, edge_weights=edge_weights)
+        # modified_graph = modified_graph.to(device)
+        # return modified_graph
+        return Graph(x=data.x, edge_index=data.edge_index, edge_weights=edge_weights)
 # def sdrf(data, max_iterations,removal_bound,tau):
 #           #print("Rewiring using SDRF...")
 #           start_algo = time.time()
