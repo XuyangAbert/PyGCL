@@ -4,7 +4,7 @@ import networkx as nx
 # from dataloader import *
 from tqdm import tqdm
 from .fastrewiringKupdates import *
-from .fastrewiringmax import *
+# from .fastrewiringmax import *
 from .spectral_utils import *
 from torch_geometric.utils import to_networkx,from_networkx,homophily
 import random
