@@ -35,9 +35,9 @@ def proxydelmax(data, nxgraph, seed, max_iterations):
   newgraph.remove_edges_from(list(nx.selfloop_edges(newgraph)))
   return newgraph
 
-class PROXYDELMIN(Augmentor):
+class PROXYDELMAX(Augmentor):
   def __init__(self, max_iterations, seed):
-    super(PROXYDELMIN, self).__init__()
+    super(PROXYDELMAX, self).__init__()
     self.max_iterations = max_iterations
     self.seed = seed
     # self.tau = tau
