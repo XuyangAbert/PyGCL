@@ -44,8 +44,9 @@ class PROXYDELMIN(Augmentor):
     def augment(self, g: Graph) -> Graph:
         x, edge_index, edge_weights = g.unfold()
         data = Data(x=x, edge_index=edge_index)
+        nxgraph = to_networkx(data, to_undirected=True)  
         # newgraph = sdrf(g, self.max_iterations, self.removal_bound, self.tau)
-        newgraph = proxydelmin(data, g, self.seed, self.max_iterations)
+        newgraph = proxydelmin(data, nxgraph, self.seed, self.max_iterations)
         data.edge_index = torch.tensor(list(newgraph.edges())).t()
         device = torch.device('cuda')
         data = data.to(device)
