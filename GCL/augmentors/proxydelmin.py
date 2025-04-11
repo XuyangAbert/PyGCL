@@ -29,7 +29,7 @@ def proxydelmin(data, nxgraph, seed, max_iterations):
     # diff_class_same_community_before = 0
     # diff_class_diff_community_before = 0
     # start_algo = time.time()
-    newgraph = min_and_update_edges(nxgraph, rank_by_proxy_delete_min, "proxydeletemin",seed, max_iter=max_iterations, updating_period=1)
+    newgraph = min_and_update_edges(nxgraph, rank_by_proxy_delete_min, "proxydeletemin", updating_period=1, max_iter=max_iterations)
     newgraph.remove_edges_from(list(nx.selfloop_edges(newgraph)))
     # end_algo = time.time()
     return newgraph
