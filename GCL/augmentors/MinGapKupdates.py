@@ -116,16 +116,16 @@ def min_and_update_edges(g, ranking_method, ranking_name, updating_period=1, max
     # gaps = [gap]
     counter = 0
     modified = True
-    with tqdm(total=max_iter, desc="Edge Modification") as pbar:
-        while modified and counter < max_iter : #len(gaps) <= max_iter:
-            modified, g, deg, L_norm = modify_k_edges(g, ranking_method, gap, vecs, deg, L_norm, updating_period)
-            gap, vecs,_,_ = spectral_gap(g)
-            counter+=1 
-            # gaps.append(gap)
-            pbar.update(1)  # Update the progress bar
-            if len(g.edges) == 0 or not modified:
-              break
-        # get number of nodes and edges
+    # with tqdm(total=max_iter, desc="Edge Modification") as pbar:
+    while modified and counter < max_iter : #len(gaps) <= max_iter:
+        modified, g, deg, L_norm = modify_k_edges(g, ranking_method, gap, vecs, deg, L_norm, updating_period)
+        gap, vecs,_,_ = spectral_gap(g)
+        counter+=1 
+        # gaps.append(gap)
+        pbar.update(1)  # Update the progress bar
+        if len(g.edges) == 0 or not modified:
+          break
+    # get number of nodes and edges
     e1 = g.number_of_edges() - g.number_of_nodes()
     # save_gaps(gaps, 
     #                 time.time()-start,
