@@ -10,7 +10,7 @@ import networkx as nx
 from math import inf
 from tqdm import tqdm
 
-from fastrewiringKupdates import *
+# from fastrewiringKupdates import *
 from MinGapKupdates import *
 from spectral_utils import *
 
