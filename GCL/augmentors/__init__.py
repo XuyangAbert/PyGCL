@@ -13,6 +13,7 @@ from .edge_attr_masking import EdgeAttrMasking
 from .fosr import FOSR
 from .sdrf import SDRF
 from .proxydelmin import PROXYDELMIN
+from .proxydelmax import PROXYDELMAX
 
 __all__ = [
     'Graph',
@@ -32,6 +33,8 @@ __all__ = [
     'RWSampling'
     'FOSR',
     'SDRF',
+    'PROXYDELMAX',
+    'PROXYDELMIN',
 ]
 
 classes = __all__
