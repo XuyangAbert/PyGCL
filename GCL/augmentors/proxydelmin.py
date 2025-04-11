@@ -9,7 +9,7 @@ from .MinGapKupdates import *
 from .spectral_utils import *
 from torch_geometric.utils import to_networkx,from_networkx,homophily
 import random
-from clustering import *
+# from clustering import *
 from sklearn.metrics.cluster import normalized_mutual_info_score as NMI
 
 def maximize_modularity(G):
