@@ -15,7 +15,7 @@ from sklearn.metrics.cluster import normalized_mutual_info_score as NMI
 def maximize_modularity(G):
   return nx.community.greedy_modularity_communities(G)
 
-def proxydelmin(data, nxgraph,seed, max_iterations):
+def proxydelmin(data, nxgraph, seed, max_iterations):
     # Track the original edges
     original_edges = set(nxgraph.edges())
     # # Perform community detection before rewiring
