@@ -122,7 +122,7 @@ def min_and_update_edges(g, ranking_method, ranking_name, updating_period=1, max
         gap, vecs,_,_ = spectral_gap(g)
         counter+=1 
         # gaps.append(gap)
-        pbar.update(1)  # Update the progress bar
+        # pbar.update(1)  # Update the progress bar
         if len(g.edges) == 0 or not modified:
           break
     # get number of nodes and edges
