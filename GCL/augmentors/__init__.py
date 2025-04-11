@@ -12,6 +12,7 @@ from .feature_dropout import FeatureDropout
 from .edge_attr_masking import EdgeAttrMasking
 from .fosr import FOSR
 from .sdrf import SDRF
+from .proxydelmin import PROXYDELMIN
 
 __all__ = [
     'Graph',
