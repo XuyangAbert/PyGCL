@@ -32,3 +32,25 @@ def proxydelmin(data, nxgraph, seed, max_iterations):
     newgraph = min_and_update_edges(nxgraph, rank_by_proxy_delete_min, "proxydeletemin",seed, max_iter=max_iterations, updating_period=1)
     newgraph.remove_edges_from(list(nx.selfloop_edges(newgraph)))
     # end_algo = time.time()
+    return newgraph
+
+class PROXYDELMIN(Augmentor):
+    def __init__(self, max_iterations, seed):
+        super(PROXYDELMIN, self).__init__()
+        self.max_iterations = max_iterations
+        self.seed = seed
+        # self.tau = tau
+
+    def augment(self, g: Graph) -> Graph:
+        x, edge_index, edge_weights = g.unfold()
+        data = Data(x=x, edge_index=edge_index)
+        # newgraph = sdrf(g, self.max_iterations, self.removal_bound, self.tau)
+        newgraph = proxydelmin(data, g, self.seed, self.max_iterations)
+        data.edge_index = torch.tensor(list(newgraph.edges())).t()
+        device = torch.device('cuda')
+        data = data.to(device)
+
+        # modified_graph = Graph(x=x, edge_index=edge_index, edge_weights=edge_weights)
+        # modified_graph = modified_graph.to(device)
+        # return modified_graph
+        return Graph(x=data.x, edge_index=data.edge_index, edge_weights=edge_weights)
