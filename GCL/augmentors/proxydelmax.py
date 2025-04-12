@@ -3,6 +3,7 @@ from GCL.augmentors.functional import add_edge
 # import time
 import torch
 import networkx as nx
+from torch_geometric.data import Data
 # from dataloader import *
 from tqdm import tqdm
 from .fastrewiringKupdates import *
