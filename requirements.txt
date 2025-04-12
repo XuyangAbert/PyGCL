@@ -1,6 +1,6 @@
 torch
 torch-geometric
-numpy
+numpy==1.24.3
 tqdm
 scipy
 networkx
