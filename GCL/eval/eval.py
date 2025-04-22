@@ -2,7 +2,7 @@ import torch
 import numpy as np
 
 from abc import ABC, abstractmethod
-from sklearn.metrics import f1_score
+from sklearn.metrics import f1_score, accuracy_score
 from sklearn.model_selection import PredefinedSplit, GridSearchCV
 
 
@@ -70,8 +70,10 @@ class BaseSKLearnEvaluator(BaseEvaluator):
         classifier.fit(x_train, y_train)
         test_macro = f1_score(y_test, classifier.predict(x_test), average='macro')
         test_micro = f1_score(y_test, classifier.predict(x_test), average='micro')
+        test_acc = accuracy_score(y_test, classifier.predict(x_test))
 
         return {
             'micro_f1': test_micro,
             'macro_f1': test_macro,
+            'acc': test_acc,
         }
