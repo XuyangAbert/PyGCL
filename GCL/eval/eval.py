@@ -22,6 +22,8 @@ def from_predefined_split(data):
     assert all([mask is not None for mask in [data.train_mask, data.test_mask, data.val_mask]])
     num_samples = data.num_nodes
     indices = torch.arange(num_samples)
+    device = torch.device('cuda')
+    indices = indices.to(device)
     return {
         'train': indices[data.train_mask],
         'valid': indices[data.val_mask],
